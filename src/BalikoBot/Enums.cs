@@ -8,60 +8,64 @@ namespace BalikoBot
 	/// <summary>
 	/// dopravci
 	/// </summary>
-	public enum Carriers
+	public enum Carriers : int
 	{
+		/// <summary>
+		/// undefined carried
+		/// </summary>
+		undeifned = -1,
 		/// <summary>
 		/// Česká pošta s.p.
 		/// </summary>
-		cp,
+		cp = 1,
 		/// <summary>
 		/// DHL Express
 		/// </summary>
-		dhl,
+		dhl = 2,
 		/// <summary>
 		/// Direct Parcel Distribution CZ s.r.o.
 		/// </summary>
-		dpd,
+		dpd = 3,
 		/// <summary>
 		/// Geis CZ s.r.o., Parcel i Cargo, CZ i SK verze
 		/// </summary>
-		geis,
+		geis = 4,
 		/// <summary>
 		/// General Logistics Systems Czech Republic s.r.o.
 		/// </summary>
-		gls,
+		gls = 5,
 		/// <summary>
 		/// IN TIME SPEDICE s. r.o.
 		/// </summary>
-		intime,
+		intime = 6,
 		/// <summary>
 		/// Pošta bez hranic (Frogman s.r.o.)
 		/// </summary>
-		pbh,
+		pbh = 7,
 		/// <summary>
 		/// PPL CZ s.r.o. – Parcel i Sprint
 		/// </summary>
-		ppl,
+		ppl = 8,
 		/// <summary>
 		/// Slovenská pošta a.s.
 		/// </summary>
-		sp,
+		sp = 9,
 		/// <summary>
 		/// TOPTRANS EU a.s.
 		/// </summary>
-		toptrans,
+		toptrans = 10,
 		/// <summary>
 		/// Uloženka s.r.o.
 		/// </summary>
-		ulozenka,
+		ulozenka = 11,
 		/// <summary>
 		/// UPS
 		/// </summary>
-		ups,
+		ups = 12,
 		/// <summary>
 		/// Zásilkovna s.r.o.
 		/// </summary>
-		zasilkovna,
+		zasilkovna = 13,
 	}
 
 	/// <summary>
