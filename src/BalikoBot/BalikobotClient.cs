@@ -111,11 +111,13 @@ namespace BalikoBot
 				return json.ForEachValuesOfProperties((o, x) => new BalikoBotPackage()
 				{
 					EshopId = (string)datas[x][BalikoBotData.EID],
+					FullResponse = o,
 
 					CarrierId = (string)o["carrier_id"],
 					PackageId = (int)o["package_id"],
 					LabelUrl = (string)o["label_url"],
 					Status = (int)o["status"],
+					TrackUrl = o.ContainsKey("track_url") ? (string)o["track_url"] : null, // it may or may not be present in the response, depenends on whether the url was requested
 				});
 			}
 			else
@@ -147,11 +149,13 @@ namespace BalikoBot
 				return json.ForEachValuesOfProperties((o, x) => new BalikoBotPackage()
 				{
 					EshopId = (string)datas[x][BalikoBotData.EID],
+					FullResponse = o,
 
 					CarrierId = (string)o["carrier_id"],
 					PackageId = (int)o["package_id"],
 					LabelUrl = (string)o["label_url"],
 					Status = (int)o["status"],
+					TrackUrl = o.ContainsKey("track_url") ? (string)o["track_url"] : null, // it may or may not be present in the response, depenends on whether the url was requested
 				});
 			}
 			else
@@ -256,10 +260,12 @@ namespace BalikoBot
 
 			return json.ForEachValuesOfProperties((o, x) => new BalikoBotPackage()
 			{
+				FullResponse = o,
 				EshopId = (string)o["eshop_id"],
 				CarrierId = (string)o["carrier_id"],
 				PackageId = (int)o["package_id"],
 				LabelUrl = (string)o["label_url"],
+				TrackUrl = o.ContainsKey("track_url") ? (string)o["track_url"] : null, // it may or may not be present in the response, depenends on whether the url was requested
 			});
 		}
 

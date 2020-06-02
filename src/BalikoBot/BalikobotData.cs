@@ -108,12 +108,14 @@ namespace BalikoBot
 		/// </summary>
 		public static readonly string ERRORS = "return_full_errors";
 
+		public static readonly string RETURN_TRACK = "return_track";
+
 		#region Constructor
 
 		public BalikoBotData()
 		{
 		}
-		public BalikoBotData(string eid, string serviceType, bool errors = true) : this()
+		public BalikoBotData(string eid, string serviceType, bool errors = true, bool track = true) : this()
 		{
 			// EshopId
 			AddSafe(BalikoBotData.EID, eid);
@@ -121,6 +123,8 @@ namespace BalikoBot
 			AddSafe(BalikoBotData.SERVICE_TYPE, serviceType);
 			// detailni chybove hlaseni
 			AddSafe(BalikoBotData.ERRORS, errors);
+			// požadovat vrácení track_url
+			AddSafe(BalikoBotData.RETURN_TRACK, track);
 		}
 
 		#endregion
