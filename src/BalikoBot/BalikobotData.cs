@@ -28,7 +28,7 @@ namespace BalikoBot
 		/// </summary>
 		public static readonly string SERVICE_TYPE = "service_type";
 		/// <summary>
-		/// Cislo objednavky.
+		/// Číslo objednávky (pořadové číslo balíku).
 		/// Povinný pro sdružené zásilky, u samostatných se nemusí uvádět.
 		/// </summary>
 		public static readonly string ORDER_NUMBER = "order_number";
@@ -109,6 +109,8 @@ namespace BalikoBot
 		public static readonly string ERRORS = "return_full_errors";
 
 		public static readonly string RETURN_TRACK = "return_track";
+
+		public static readonly string REAL_ORDER_ID = "real_order_id";
 
 		#region Constructor
 
@@ -202,6 +204,12 @@ namespace BalikoBot
 		public BalikoBotData AddHmotnost(decimal weight)
 		{
 			AddSafe(WEIGHT, weight);
+			return this;
+		}
+
+		public BalikoBotData AddCisloBaliku(int number)
+		{
+			AddSafe(BalikoBotData.ORDER_NUMBER, number);
 			return this;
 		}
 

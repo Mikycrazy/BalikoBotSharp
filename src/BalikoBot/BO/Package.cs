@@ -16,5 +16,10 @@ namespace BalikoBot.BO
 
 		// full response to retrieve information not extracted to the properties
 		public JObject FullResponse { get; set; }
+
+		/// <summary>
+		/// Package's number (back-reference from <see cref="BalikoBotClient.Add(BalikoBotData[])"/> call)
+		/// </summary>
+		public int Number { get; set; }
 	}
 }

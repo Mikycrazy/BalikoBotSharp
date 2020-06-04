@@ -94,53 +94,29 @@ namespace BalikoBot
 		/// </remarks>
 		public async Task<IEnumerable<BalikoBotPackage>> Add(params BalikoBotData[] datas)
 		{
-			if (datas == null || datas.Length == 0)
-				throw new ArgumentException(nameof(datas));
-
-			var data = datas.FromArrayToJArray((x, arr) =>
-			{
-				arr.Add(JObject.FromObject(x));
-			});
-
-			var json = await PostAsync($"{API_SCHEMA}{API_URL_V1}/{_carrier}/add", data);
-
-			var status = (int)json["status"];
-			// OK (200) nebo OK, uz drive ulozeno (208)
-			if (status == 200 || status == 208)
-			{
-				return json.ForEachValuesOfProperties((o, x) => new BalikoBotPackage()
-				{
-					EshopId = (string)datas[x][BalikoBotData.EID],
-					FullResponse = o,
-
-					CarrierId = (string)o["carrier_id"],
-					PackageId = (int)o["package_id"],
-					LabelUrl = (string)o["label_url"],
-					Status = (int)o["status"],
-					TrackUrl = o.ContainsKey("track_url") ? (string)o["track_url"] : null, // it may or may not be present in the response, depenends on whether the url was requested
-				});
-			}
-			else
-			{
-				// chyba
-				throw new BalikoBotAddException(datas, json);
-			}
+			return await AddCheckBody("add", datas);
 		}
 
 		/// <summary>
-		/// K (obdoba metody ADD jen se data neuloží do systému, ale zkontrolují se a API vrátí zda jsou v pořádku, případně seznam chyb)
+		/// Kontrola (obdoba metody ADD jen se data neuloží do systému, ale zkontrolují se a API vrátí zda jsou v pořádku, případně seznam chyb)
 		/// </summary>
 		public async Task<IEnumerable<BalikoBotPackage>> Check(params BalikoBotData[] datas)
+		{
+			return await AddCheckBody("check", datas);
+		}
+
+		private async Task<IEnumerable<BalikoBotPackage>> AddCheckBody(string action, params BalikoBotData[] datas)
 		{
 			if (datas == null || datas.Length == 0)
 				throw new ArgumentException(nameof(datas));
 
+			// TODO LS - check that all data values are simple types (string, bool, int)? Can result in weird exception on invalid serialization or wrong data that will be rejected from the balikobot
 			var data = datas.FromArrayToJArray((x, arr) =>
 			{
 				arr.Add(JObject.FromObject(x));
 			});
 
-			var json = await PostAsync($"{API_SCHEMA}{API_URL_V1}/{_carrier}/check", data);
+			var json = await PostAsync($"{API_SCHEMA}{API_URL_V1}/{_carrier}/{action}", data);
 
 			var status = (int)json["status"];
 			// OK (200) nebo OK, uz drive ulozeno (208)
@@ -150,6 +126,7 @@ namespace BalikoBot
 				{
 					EshopId = (string)datas[x][BalikoBotData.EID],
 					FullResponse = o,
+					Number = (int)datas[x][BalikoBotData.ORDER_NUMBER],
 
 					CarrierId = (string)o["carrier_id"],
 					PackageId = (int)o["package_id"],
