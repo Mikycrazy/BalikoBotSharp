@@ -13,7 +13,7 @@ namespace BalikoBot
 		/// <summary>
 		/// undefined carried
 		/// </summary>
-		undeifned = -1,
+		undefined = -1,
 		/// <summary>
 		/// Česká pošta s.p.
 		/// </summary>
